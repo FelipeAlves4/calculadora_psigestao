@@ -865,6 +865,35 @@
   .chart-frame h3 {
     @apply mb-4 text-base font-extrabold text-white;
   }
+
+  .chart-tooltip {
+    width: min(15rem, calc(100vw - 2rem));
+    border: 1px solid rgba(201, 151, 50, 0.38);
+    border-radius: 0.5rem;
+    background: #0b1b2d;
+    padding: 0.75rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32);
+  }
+
+  .chart-tooltip > strong { @apply mb-2 block text-xs font-black uppercase tracking-wide text-white; }
+  .chart-tooltip-row { @apply flex items-center gap-1.5 py-0.5 text-xs text-slate-300; }
+  .chart-tooltip-row i { @apply h-2 w-2 rounded-full bg-slate-400; }
+  .chart-tooltip-projected i { @apply bg-gold-500; }
+  .chart-tooltip-row b { @apply ml-auto text-white; }
+  .chart-tooltip-difference { @apply mt-2 block border-t border-white/10 pt-2 text-xs text-slate-300; }
+  .chart-tooltip-difference b { @apply text-gold-500; }
+
+  .productivity-card {
+    @apply rounded-md border border-white/10 bg-[#142944] p-4;
+  }
+
+  .productivity-card > span { @apply block text-xs font-bold uppercase tracking-wide text-slate-400; }
+  .productivity-card > strong { @apply mt-2 block text-base font-extrabold leading-relaxed text-white; }
+  .productivity-card > strong i { @apply mx-1 not-italic text-gold-500; }
+  .productivity-card > small { @apply mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-bold; }
+  .productivity-trend-positive { @apply bg-emerald-500/15 text-emerald-300; }
+  .productivity-trend-negative { @apply bg-red-500/15 text-red-300; }
+  .productivity-trend-neutral { @apply bg-slate-700/70 text-slate-200; }
 }
 
 .presentation-mode .secondary-action {
