@@ -15,7 +15,6 @@ export const LoginPage = () => {
   const [remember, setRemember] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState('');
-  const [detail, setDetail] = useState('');
   const successMessage = (location.state as { success?: string } | null)?.success;
   const sessionNotice = (location.state as { sessionNotice?: string } | null)?.sessionNotice ||
     (searchParams.get('reason') === 'session-expired' ? 'Sua sessão expirou. Entre novamente para continuar.' : '');
@@ -26,7 +25,6 @@ export const LoginPage = () => {
     event.preventDefault();
     if (submitting) return;
     setMessage('');
-    setDetail('');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setMessage('Informe um e-mail válido.');
       return;
@@ -37,8 +35,10 @@ export const LoginPage = () => {
       navigate('/calculadora', { replace: true });
     } catch (error) {
       const apiError = error as ApiError;
-      setMessage(apiError.message);
-      setDetail(apiError.detail || '');
+      if (apiError.status === 401) setMessage('E-mail ou senha incorretos. Verifique os dados e tente novamente.');
+      else if (apiError.status === 429) setMessage('Muitas tentativas de acesso. Aguarde alguns minutos e tente novamente.');
+      else if (apiError.status === 403) setMessage('Seu acesso está indisponível. Entre em contato com o suporte para receber ajuda.');
+      else setMessage('Não foi possível acessar sua conta agora. Tente novamente em instantes.');
     } finally {
       setSubmitting(false);
     }
@@ -46,24 +46,25 @@ export const LoginPage = () => {
 
   return (
     <AuthShell
-      eyebrow="ASEX EDUCAÇÃO"
-      title="Acesso dos Agentes de Expansão"
-      description="Entre com seus dados para acessar a Calculadora de Resultados."
+      eyebrow="ACESSO À PLATAFORMA"
+      title="Bem-vindo ao PsiGestão"
+      description="Acesse sua conta para continuar gerenciando seus atendimentos."
     >
       {successMessage ? <div className="form-alert form-alert-success" role="status">{successMessage}</div> : null}
       {sessionNotice ? <div className="form-alert form-alert-info" role="status">{sessionNotice}</div> : null}
-      {message ? <div className="form-alert form-alert-error" role="alert"><strong>{message}</strong>{detail ? <span>{detail}</span> : null}</div> : null}
+      {message ? <div className="form-alert form-alert-error" role="alert"><strong>{message}</strong></div> : null}
       <form className="auth-form" onSubmit={submit} noValidate>
-        <FormField label="E-mail" name="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required />
-        <FormField label="Senha" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required />
+        <FormField label="E-mail" name="email" type="email" placeholder="seuemail@exemplo.com" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required />
+        <FormField label="Senha" name="password" type="password" placeholder="Digite sua senha" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required />
         <div className="form-options">
           <label className="checkbox-field"><input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} /><span>Lembrar de mim</span></label>
           <Link to="/recuperar-senha">Esqueci minha senha</Link>
         </div>
         <button className="auth-submit" type="submit" disabled={submitting}>
-          {submitting ? <><span className="loading-spinner loading-spinner-dark" /> Entrando…</> : 'Entrar'}
+          {submitting ? <><span className="loading-spinner loading-spinner-dark" /> Entrando…</> : 'Entrar no PsiGestão'}
         </button>
       </form>
+      <p className="auth-alternate-action">Ainda não possui uma conta? <Link to="/cadastro">Criar conta</Link></p>
     </AuthShell>
   );
 };

@@ -312,15 +312,74 @@
   .detail-modal dd { @apply mt-1 break-words text-sm font-semibold text-slate-200; }
 }
 
+@layer components {
+  .auth-page {
+    background:
+      radial-gradient(circle at 8% 15%, rgba(34, 197, 94, 0.2), transparent 28rem),
+      radial-gradient(circle at 93% 85%, rgba(16, 185, 129, 0.16), transparent 30rem),
+      linear-gradient(145deg, #03150e, #06251b 58%, #071b18);
+  }
+
+  .auth-shell { border-color: rgba(74, 222, 128, 0.22); background: rgba(5, 26, 20, 0.93); }
+
+  .auth-brand-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    border-color: rgba(74, 222, 128, 0.18);
+    background:
+      radial-gradient(circle at 0% 100%, rgba(34, 197, 94, 0.25), transparent 22rem),
+      linear-gradient(145deg, #063c25, #06251b 60%, #031a12);
+  }
+
+  .auth-brand-panel::after {
+    border-color: rgba(74, 222, 128, 0.24);
+    box-shadow: 0 0 0 2rem rgba(74, 222, 128, 0.04), 0 0 0 4rem rgba(74, 222, 128, 0.025);
+  }
+
+  .auth-brand-identity { justify-items: start; gap: 0.8rem; }
+  .auth-brand-logo { width: min(100%, 15rem); border: 0; border-radius: 0; background: transparent; box-shadow: none; filter: brightness(0) saturate(100%) invert(80%) sepia(29%) saturate(761%) hue-rotate(91deg) brightness(102%) contrast(92%) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.26)); }
+  .auth-brand-tagline { @apply m-0 text-sm font-semibold leading-relaxed text-emerald-100; }
+  .auth-brand-content { position: relative; z-index: 1; }
+  .auth-brand-content h2 { @apply m-0 max-w-sm text-2xl font-extrabold leading-tight text-white; }
+  .auth-brand-content > p { @apply mt-3 max-w-sm text-sm leading-relaxed text-emerald-50/75; }
+  .auth-benefit-list { @apply mt-5 grid list-none gap-3 p-0 text-sm font-semibold text-emerald-50; }
+  .auth-benefit-list li { @apply flex items-center gap-2.5; }
+  .auth-benefit-list svg { @apply shrink-0 text-emerald-300; }
+
+  .auth-trust-note { position: relative; display: flex; color: #86efac; }
+  .auth-trust-note span { @apply mt-1 text-xs text-emerald-50/60; }
+  .auth-asex-signature { position: relative; z-index: 1; @apply text-xs font-medium text-emerald-50/50; }
+
+  .auth-card { background: linear-gradient(180deg, rgba(9, 42, 30, 0.96), rgba(4, 24, 17, 0.98)); }
+  .auth-eyebrow { @apply text-emerald-300; }
+  .text-input-shell { @apply border-white/15 bg-[#041d14] focus-within:border-emerald-400 focus-within:ring-emerald-400/15; }
+  .password-toggle { @apply hover:text-emerald-300 focus:ring-emerald-400; }
+  .form-options a, .auth-back-link, .auth-alternate-action a { @apply text-emerald-300 hover:text-emerald-100; }
+  .checkbox-field input { accent-color: #34d399; }
+  .auth-submit { @apply border-emerald-400 bg-emerald-400 text-emerald-950 hover:bg-emerald-300 focus:ring-emerald-200 focus:ring-offset-[#06251b]; }
+  .auth-alternate-action { @apply mt-5 text-center text-sm leading-relaxed text-slate-400; }
+  .form-alert-info { @apply border-emerald-400/30 bg-emerald-500/10 text-emerald-100; }
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (min-width: 840px) {
   .auth-shell { grid-template-columns: minmax(18rem, 0.82fr) minmax(27rem, 1.18fr); }
-  .auth-brand-panel { min-height: 100%; align-items: flex-start; padding: 2.4rem; border-right: 1px solid rgba(201,151,50,.18); border-bottom: 0; }
-  .auth-brand-panel-centered { align-items: center; }
-  .auth-brand-logo { width: min(100%, 13.5rem); }
-  .auth-trust-note { display: flex; left: 2.4rem; bottom: 2.4rem; }
+  .auth-brand-panel { min-height: 100%; padding: 2.4rem; border-right: 1px solid rgba(74, 222, 128, .18); border-bottom: 0; }
+  .auth-brand-logo { width: min(100%, 16rem); }
   .auth-card { padding: 2.4rem; }
+}
+
+@media (max-width: 839px) {
+  .auth-page { place-items: start center; padding: 1rem; }
+  .auth-shell { width: min(100%, 34rem); }
+  .auth-brand-panel { min-height: 0; padding: 1.5rem; }
+  .auth-brand-panel::after { display: none; }
+  .auth-brand-logo { width: min(100%, 12rem); }
+  .auth-brand-content, .auth-trust-note, .auth-asex-signature { display: none; }
+  .auth-card { padding: 1.5rem; }
 }
 
 @media (max-width: 767px) {
