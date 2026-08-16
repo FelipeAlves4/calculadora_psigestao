@@ -1,10 +1,10 @@
-# Calculadora de Resultados ASEX Educação
+# PsiGestão | Calculadora para Psicólogos
 
-Aplicação web responsiva e protegida para os agentes de expansão compararem o cenário financeiro atual de um atendimento com um cenário projetado.
+Aplicação web responsiva e protegida para psicólogos compararem o cenário financeiro atual de seus atendimentos com um cenário projetado.
 
 ## Como executar
 
-1. Copie `.env.example` para `.env`, preencha `AUTH_SECRET` e os dados do administrador inicial. O comando de desenvolvimento usa `LOCAL_DATABASE_URL=./data/asex.db`, mantendo o banco de produção separado.
+1. Copie `.env.example` para `.env`, preencha `AUTH_SECRET` e os dados do administrador inicial. O comando de desenvolvimento usa `LOCAL_DATABASE_URL=./data/psigestao.db`, mantendo o banco de produção separado.
 
 2. Instale as dependências:
 
@@ -25,12 +25,14 @@ npm run build
 npm start
 ```
 
-## Publicação na Vercel com Supabase
+## Publicação na Vercel com Supabase PostgreSQL
 
-O desenvolvimento local usa SQLite. Na Vercel, configure o PostgreSQL do Supabase por meio das variáveis de ambiente do projeto:
+O desenvolvimento local usa SQLite. Em produção, a aplicação usa o PostgreSQL do projeto Supabase `xrfkrscihjkstmjtcyud` pelo backend. Ela não usa Supabase Auth, `supabase-js`, `VITE_SUPABASE_URL` nem `VITE_SUPABASE_ANON_KEY`.
 
-- `DATABASE_URL`: URI **Transaction pooler** obtida em **Connect** no Supabase, já com a senha do banco no lugar de `[YOUR-PASSWORD]`.
-- `APP_URL`: `https://calculadora-asex-educacao.vercel.app`
+Na Vercel, configure as variáveis de ambiente de **Production**:
+
+- `DATABASE_URL`: URI **Transaction pooler** obtida em **Connect** no projeto Supabase correto, já com a senha do banco no lugar de `[YOUR-PASSWORD]`.
+- `APP_URL`: `https://calculadora-psigestao.vercel.app`
 - `AUTH_SECRET`: segredo longo e aleatório, diferente de qualquer senha de usuário.
 - `BOOTSTRAP_ADMIN_NAME`, `BOOTSTRAP_ADMIN_PHONE`, `BOOTSTRAP_ADMIN_EMAIL` e `BOOTSTRAP_ADMIN_PASSWORD`: dados do primeiro administrador.
 - `EMAIL_FROM` e `EMAIL_API_KEY`: opcionais; necessários para enviar a recuperação de senha por e-mail.

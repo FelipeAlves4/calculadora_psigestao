@@ -1,7 +1,7 @@
 import path from 'node:path';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const configuredDatabase = process.env.DATABASE_URL || './data/asex.db';
+const configuredDatabase = process.env.DATABASE_URL || './data/psigestao.db';
 
 if (isProduction && !process.env.AUTH_SECRET) {
   throw new Error('AUTH_SECRET é obrigatório em produção.');

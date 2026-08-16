@@ -58,7 +58,7 @@ export const AuthShell = ({
           <LockKeyhole size={18} />
           <p><strong>Acesso protegido</strong><span>Seus dados são tratados com segurança.</span></p>
         </div>
-        <small className="auth-asex-signature">Uma solução ASEX Educação</small>
+        <small className="auth-asex-signature">Uma solução PsiGestão</small>
       </aside>
       <div className="auth-card">
         <span className="auth-eyebrow">{eyebrow}</span>

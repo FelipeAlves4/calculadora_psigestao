@@ -10,7 +10,7 @@ setInterval(() => void cleanupExpiredRecords(db), 60 * 60 * 1000).unref();
 
 const server = createServer(createRequestHandler({ db, config }));
 server.listen(config.port, () => {
-  console.log(`Servidor ASEX disponível em http://localhost:${config.port}`);
+  console.log(`Servidor PsiGestão disponível em http://localhost:${config.port}`);
 });
 
 const shutdown = () => {

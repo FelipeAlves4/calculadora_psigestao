@@ -6,7 +6,7 @@ const serverEnvironment = {
   ...process.env,
   NODE_ENV: 'development',
   APP_URL: 'http://localhost:5173',
-  DATABASE_URL: process.env.LOCAL_DATABASE_URL || './data/asex.db',
+  DATABASE_URL: process.env.LOCAL_DATABASE_URL || './data/psigestao.db',
 };
 const children = [
   spawn(process.execPath, ['--watch', 'server/index.mjs'], { stdio: 'inherit', env: serverEnvironment }),

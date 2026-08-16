@@ -227,7 +227,7 @@ export const bootstrapAdmin = async (db) => {
     VALUES (?, ?, ?, ?, ?, 'admin', 'active', ?, ?)
   `,
     randomUUID(),
-    normalizeName(process.env.BOOTSTRAP_ADMIN_NAME || 'Administrador ASEX'),
+    normalizeName(process.env.BOOTSTRAP_ADMIN_NAME || 'Administrador PsiGestão'),
     normalizePhone(process.env.BOOTSTRAP_ADMIN_PHONE || '11999999999'),
     email,
     passwordHash,

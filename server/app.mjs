@@ -220,12 +220,12 @@ const sendPasswordResetEmail = async ({ email, name, resetUrl, config, messageId
       Authorization: `Bearer ${config.emailApiKey}`,
       'Content-Type': 'application/json',
       'Idempotency-Key': messageId,
-      'User-Agent': 'ASEX-Calculadora/1.0',
+      'User-Agent': 'PsiGestao-Calculadora/1.0',
     },
     body: JSON.stringify({
       from: config.emailFrom,
       to: [email],
-      subject: 'Redefinição de senha — ASEX Educação',
+      subject: 'Redefinição de senha — PsiGestão',
       html: `<p>Olá, ${escapeHtml(name)}.</p><p>Recebemos uma solicitação para redefinir sua senha.</p><p><a href="${escapeHtml(resetUrl)}">Definir nova senha</a></p><p>Este link é válido por ${config.resetTokenMinutes} minutos e só pode ser usado uma vez.</p><p>Se você não fez esta solicitação, ignore esta mensagem.</p>`,
       text: `Olá, ${name}. Use este link para redefinir sua senha: ${resetUrl}. O link é válido por ${config.resetTokenMinutes} minutos e só pode ser usado uma vez.`,
     }),
@@ -312,7 +312,7 @@ export const createRequestHandler = ({ db, config, emailSender = sendPasswordRes
         await db.run('DELETE FROM sessions WHERE user_id = ?', user.id);
         return json(res, 403, {
           message: 'Seu acesso está indisponível.',
-          detail: 'Entre em contato com a equipe da ASEX Educação.',
+          detail: 'Entre em contato com a equipe do PsiGestão.',
         });
       }
       await clearRateLimit(db, rateKey);
@@ -531,7 +531,15 @@ export const createRequestHandler = ({ db, config, emailSender = sendPasswordRes
     json(res, 404, { message: 'Página não encontrada.' });
   } catch (error) {
     const status = Number(error.status) || 500;
-    if (status >= 500) console.error('Erro interno:', error);
+    if (status >= 500) {
+      console.error('API request failed', {
+        method,
+        pathname,
+        status,
+        code: error?.code,
+        message: error?.message,
+      });
+    }
     json(res, status, { message: status >= 500 ? 'Não foi possível concluir a solicitação.' : error.message });
   }
 };
