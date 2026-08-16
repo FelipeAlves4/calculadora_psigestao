@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 interface HeaderProps {
   title?: string;
   subtitle?: string;
+  brandName?: string;
+  brandNote?: string;
+  userLabel?: string;
   onExample: () => void;
   onClear: () => void;
   onPrint: () => void;
@@ -19,6 +22,9 @@ interface HeaderProps {
 export const Header = ({
   title = 'Calculadora de Resultados',
   subtitle = 'Diagnóstico financeiro premium para comparar o cenário atual com o resultado projetado.',
+  brandName = 'ASEX Educação',
+  brandNote,
+  userLabel = 'Agente conectado',
   onExample,
   onClear,
   onPrint,
@@ -37,10 +43,11 @@ export const Header = ({
         <div className="max-w-3xl">
           <div className="brand-pill">
             <BarChart3 size={17} />
-            ASEX Educação
+            {brandName}
           </div>
           <h1 className="site-title">{title}</h1>
           <p className="site-subtitle">{subtitle}</p>
+          {brandNote ? <p className="mt-2 text-xs font-medium text-slate-400">{brandNote}</p> : null}
         </div>
 
         <div className="header-side">
@@ -74,7 +81,7 @@ export const Header = ({
           <div className="user-menu">
             <button type="button" className="user-menu-trigger" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen}>
               <span className="user-avatar"><UserRound size={17} /></span>
-              <span className="user-menu-name"><small>Agente conectado</small><strong>{userName}</strong></span>
+              <span className="user-menu-name"><small>{userLabel}</small><strong>{userName}</strong></span>
               <ChevronDown size={17} />
             </button>
             {menuOpen ? (

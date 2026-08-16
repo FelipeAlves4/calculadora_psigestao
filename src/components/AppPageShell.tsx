@@ -14,7 +14,7 @@ export const AppPageShell = ({ title, eyebrow, children, backTo = '/calculadora'
   return (
     <div className="app-page">
       <header className="app-page-header">
-        <Link to="/calculadora" className="app-page-brand"><BarChart3 size={21} /><span>ASEX Educação</span></Link>
+        <Link to="/calculadora" className="app-page-brand"><BarChart3 size={21} /><span>PsiGestão</span></Link>
         <div className="app-page-user"><span>{user?.name}</span><button type="button" onClick={logout}><LogOut size={17} /> Sair</button></div>
       </header>
       <main className="app-page-content">

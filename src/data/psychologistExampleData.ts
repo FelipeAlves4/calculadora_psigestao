@@ -15,29 +15,29 @@ export const createEmptyPsychologistScenario = (): PsychologistScenario => ({
 });
 
 export const exampleCurrentPsychologistScenario = (): PsychologistScenario => ({
-  groupCount: 2,
-  peoplePerGroup: 5,
-  groupPrice: 200,
+  groupCount: 0,
+  peoplePerGroup: 0,
+  groupPrice: 0,
   groupMeetings: 4,
-  groupDuration: 2,
-  individualPrice: 160,
-  individualPatients: 10,
+  groupDuration: 1.5,
+  individualPrice: 180,
+  individualPatients: 20,
   individualSessions: 4,
-  individualDuration: 1.6,
+  individualDuration: 1,
   fixedIncome: 0,
-  expenses: { rent: 1500, transport: 500, food: 400, taxes: 400, other: 200 },
+  expenses: { rent: 1200, transport: 500, food: 400, taxes: 600, other: 300 },
 });
 
 export const exampleProjectedPsychologistScenario = (): PsychologistScenario => ({
   groupCount: 3,
   peoplePerGroup: 8,
-  groupPrice: 150,
+  groupPrice: 90,
   groupMeetings: 4,
   groupDuration: 1.5,
-  individualPrice: 120,
+  individualPrice: 180,
   individualPatients: 12,
-  individualSessions: 2,
-  individualDuration: 2,
+  individualSessions: 4,
+  individualDuration: 1,
   fixedIncome: 0,
-  expenses: { rent: 1500, transport: 500, food: 400, taxes: 600, other: 200 },
+  expenses: { rent: 1200, transport: 500, food: 400, taxes: 800, other: 300 },
 });

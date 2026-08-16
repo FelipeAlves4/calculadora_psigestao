@@ -23,8 +23,9 @@ export const Router = () => (
           <Route path="/cadastro" element={<RegisterPage />} />
           <Route path="/recuperar-senha" element={<ForgotPasswordPage />} />
           <Route path="/redefinir-senha" element={<ResetPasswordPage />} />
-          <Route path="/calculadora" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><CalculatorPage /></ProtectedRoute>} />
-          <Route path="/calculadora-psicologos" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><PsychologistCalculatorPage /></ProtectedRoute>} />
+          <Route path="/calculadora" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><PsychologistCalculatorPage /></ProtectedRoute>} />
+          <Route path="/calculadora-psicologos" element={<Navigate to="/calculadora" replace />} />
+          <Route path="/calculadora-restaurantes" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><CalculatorPage /></ProtectedRoute>} />
           <Route path="/minha-conta" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><AccountPage /></ProtectedRoute>} />
           <Route path="/alterar-senha" element={<ProtectedRoute allowedRoles={['agent', 'admin']}><ChangePasswordPage /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminPage /></ProtectedRoute>} />

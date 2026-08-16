@@ -2,11 +2,61 @@ import { BarChart3, CheckCircle2 } from 'lucide-react';
 import { PsychologistComparisonRow, PsychologistResults } from '../types/psychologist';
 import { formatCurrency, formatPercentage } from '../utils/formatters';
 
-const format = (row: PsychologistComparisonRow, value: number) => row.format === 'currency' ? formatCurrency(value) : row.format === 'percentage' ? formatPercentage(value) : row.format === 'hours' ? `${value.toLocaleString('pt-BR')} h` : value.toLocaleString('pt-BR');
+const format = (row: PsychologistComparisonRow, value: number) =>
+  row.format === 'currency' ? formatCurrency(value) : row.format === 'percentage' ? formatPercentage(value) : row.format === 'hours' ? `${value.toLocaleString('pt-BR')} h` : value.toLocaleString('pt-BR');
+
 export const PsychologistPrintableReport = ({ current, projected, rows }: { current: PsychologistResults; projected: PsychologistResults; rows: PsychologistComparisonRow[] }) => {
   const date = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date());
-  const highlights = [['Resultado mensal projetado', formatCurrency(projected.monthlyProfit)], ['Resultado anual projetado', formatCurrency(projected.annualProfit)], ['Horas projetadas', `${projected.totalHours.toLocaleString('pt-BR')} h/mês`], ['Vidas impactadas', projected.livesImpacted.toLocaleString('pt-BR')]];
+  const highlights = [
+    ['Resultado mensal projetado', formatCurrency(projected.monthlyProfit)],
+    ['Resultado anual projetado', formatCurrency(projected.annualProfit)],
+    ['Horas projetadas', `${projected.totalHours.toLocaleString('pt-BR')} h/mês`],
+    ['Vidas impactadas', `${projected.livesImpacted.toLocaleString('pt-BR')} pessoas`],
+  ];
   const annualScale = Math.max(Math.abs(current.annualProfit), Math.abs(projected.annualProfit), 1);
-  return <article className="print-report" aria-label="Relatório da calculadora de psicólogos"><section className="print-page print-cover-page"><header className="print-report-header"><div className="print-report-brand"><span className="print-report-logo"><BarChart3 size={22} /></span><div><strong>Calculadora de Resultados</strong><span>Atendimentos psicológicos</span></div></div><div className="print-report-meta"><span>Relatório de simulação</span><strong>{date}</strong></div></header><div className="print-report-title"><span>Calculadora de Resultados para Psicólogos</span><h1>Cenário atual x cenário projetado</h1><p>Comparação de resultados financeiros, horas trabalhadas e pessoas impactadas com base nos valores informados.</p></div><div className="print-highlight-grid">{highlights.map(([label, value], index) => <div className={index === 0 ? 'print-highlight-card print-highlight-featured' : 'print-highlight-card'} key={label}><span>{label}</span><strong>{value}</strong><small>Estimativa do cenário projetado</small></div>)}</div><div className="print-section-heading"><div><span>Resumo comparativo</span><h2>Principais indicadores</h2></div></div><table className="print-report-table print-summary-table"><thead><tr><th>Indicador</th><th>Atual</th><th>Projetado</th><th>Diferença</th><th>Resultado</th></tr></thead><tbody>{rows.map((row) => <tr key={row.key}><td>{row.label}</td><td>{format(row, row.current)}</td><td className="print-projected-value">{format(row, row.projected)}</td><td className={row.status === 'positive' ? 'print-positive' : row.status === 'negative' ? 'print-negative' : ''}>{format(row, row.difference)}</td><td><span className={`print-status print-status-${row.status}`}>{row.status === 'positive' ? 'Melhor' : row.status === 'negative' ? 'Atenção' : 'Neutro'}</span></td></tr>)}</tbody></table><div className="print-detail-grid mt-5"><div className="print-report-note"><strong>Nota metodológica</strong><p>Os valores são estimativas baseadas nas informações inseridas. Não representam promessa de resultado e podem variar conforme a operação profissional.</p></div><aside className="print-impact-panel"><span className="print-impact-eyebrow">Resultado anual</span><h2>Evolução estimada</h2><div className="print-bar-chart"><Bar label="Atual" value={current.annualProfit} width={(Math.abs(current.annualProfit) / annualScale) * 100} tone="current" /><Bar label="Projetado" value={projected.annualProfit} width={(Math.abs(projected.annualProfit) / annualScale) * 100} tone="projected" /></div><div className="print-impact-callout"><CheckCircle2 size={20} /><div><span>Diferença anual estimada</span><strong>{formatCurrency(projected.annualProfit - current.annualProfit)}</strong></div></div></aside></div><footer className="print-page-footer"><span>Calculadora de Resultados para Psicólogos</span><span>Página 1 de 1</span></footer></section></article>;
+
+  return <article className="print-report" aria-label="Relatório da calculadora de psicólogos">
+    <section className="print-page print-cover-page">
+      <header className="print-report-header">
+        <div className="print-report-brand">
+          <span className="print-report-logo"><BarChart3 size={22} /></span>
+          <div><strong>Calculadora PsiGestão</strong><span>Resultados para psicólogos</span></div>
+        </div>
+        <div className="print-report-meta"><span>Relatório de simulação</span><strong>{date}</strong></div>
+      </header>
+      <div className="print-report-title">
+        <span>Calculadora de Resultados para Psicólogos</span>
+        <h1>Cenário atual x cenário projetado</h1>
+        <p>Comparação de resultados financeiros, horas trabalhadas e pessoas impactadas com base nos valores informados.</p>
+      </div>
+      <div className="print-highlight-grid">
+        {highlights.map(([label, value], index) => <div className={index === 0 ? 'print-highlight-card print-highlight-featured' : 'print-highlight-card'} key={label}>
+          <span>{label}</span><strong>{value}</strong><small>Estimativa do cenário projetado</small>
+        </div>)}
+      </div>
+      <div className="print-section-heading"><div><span>Resumo comparativo</span><h2>Principais indicadores</h2></div></div>
+      <table className="print-report-table print-summary-table">
+        <thead><tr><th>Indicador</th><th>Atual</th><th>Projetado</th><th>Diferença</th><th>Resultado</th></tr></thead>
+        <tbody>{rows.map((row) => <tr key={row.key}>
+          <td>{row.label}</td><td>{format(row, row.current)}</td><td className="print-projected-value">{format(row, row.projected)}</td>
+          <td className={row.status === 'positive' ? 'print-positive' : row.status === 'negative' ? 'print-negative' : ''}>{format(row, row.difference)}</td>
+          <td><span className={`print-status print-status-${row.status}`}>{row.status === 'positive' ? 'Melhor' : row.status === 'negative' ? 'Atenção' : 'Neutro'}</span></td>
+        </tr>)}</tbody>
+      </table>
+      <div className="print-detail-grid mt-5">
+        <div className="print-report-note"><strong>Aviso de simulação</strong><p>Os valores apresentados são estimativas calculadas a partir das informações inseridas e não representam garantia de resultado financeiro.</p></div>
+        <aside className="print-impact-panel">
+          <span className="print-impact-eyebrow">Resultado anual</span><h2>Evolução estimada</h2>
+          <div className="print-bar-chart"><Bar label="Atual" value={current.annualProfit} width={(Math.abs(current.annualProfit) / annualScale) * 100} tone="current" /><Bar label="Projetado" value={projected.annualProfit} width={(Math.abs(projected.annualProfit) / annualScale) * 100} tone="projected" /></div>
+          <div className="print-impact-callout"><CheckCircle2 size={20} /><div><span>Diferença anual estimada</span><strong>{formatCurrency(projected.annualProfit - current.annualProfit)}</strong></div></div>
+        </aside>
+      </div>
+      <footer className="print-page-footer"><span>Calculadora PsiGestão · Uma solução ASEX Educação</span><span>Página 1 de 1</span></footer>
+    </section>
+  </article>;
 };
-const Bar = ({ label, value, width, tone }: { label: string; value: number; width: number; tone: 'current' | 'projected' }) => <div className="print-bar-row"><div><span>{label}</span><strong>{formatCurrency(value)}</strong></div><div className="print-bar-track"><span className={tone === 'current' ? 'print-bar-current' : 'print-bar-projected'} style={{ width: `${width}%` }} /></div></div>;
+
+const Bar = ({ label, value, width, tone }: { label: string; value: number; width: number; tone: 'current' | 'projected' }) => <div className="print-bar-row">
+  <div><span>{label}</span><strong>{formatCurrency(value)}</strong></div>
+  <div className="print-bar-track"><span className={tone === 'current' ? 'print-bar-current' : 'print-bar-projected'} style={{ width: `${width}%` }} /></div>
+</div>;
