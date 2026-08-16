@@ -793,7 +793,11 @@
     box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16);
   }
 
-  .comparison-table-shell table { min-width: 46rem; }
+  .comparison-table-shell table {
+    width: 100%;
+    min-width: 46rem;
+    table-layout: fixed;
+  }
 
   .comparison-mobile-list {
     @apply hidden;
@@ -838,7 +842,11 @@
     @apply border-t border-white/10 px-4 py-3.5 text-slate-200;
   }
 
-  .comparison-table-shell td:first-child { min-width: 15rem; }
+  .comparison-table-shell th:nth-child(1), .comparison-table-shell td:nth-child(1) { width: 26%; }
+  .comparison-table-shell th:nth-child(2), .comparison-table-shell td:nth-child(2) { width: 17%; }
+  .comparison-table-shell th:nth-child(3), .comparison-table-shell td:nth-child(3) { width: 17%; }
+  .comparison-table-shell th:nth-child(4), .comparison-table-shell td:nth-child(4) { width: 17%; }
+  .comparison-table-shell th:nth-child(5), .comparison-table-shell td:nth-child(5) { width: 23%; }
   .comparison-difference { @apply whitespace-nowrap font-extrabold; }
 
   .comparison-table-shell tbody tr:nth-child(even) {
