@@ -1,0 +1,18 @@
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { PsychologistResults } from '../types/psychologist';
+import { formatCurrency } from '../utils/formatters';
+
+const chartText = { fill: '#cbd5e1', fontSize: 11 };
+const tooltipStyle = { background: '#0b1b2d', border: '1px solid rgba(201, 151, 50, 0.35)', borderRadius: 6, color: '#fff' };
+const compactNumber = (value: number) => new Intl.NumberFormat('pt-BR', { notation: 'compact', maximumFractionDigits: 1 }).format(value);
+const moneyTooltip = (value: number | string, name: number | string) => [<span style={{ color: name === 'Projetado' ? '#c99732' : '#c7cdd6', fontWeight: 700 }}>{formatCurrency(Number(value))}</span>, name];
+
+export const PsychologistResultsCharts = ({ current, projected }: { current: PsychologistResults; projected: PsychologistResults }) => {
+  const revenueComposition = [['Receita grupos', 'groupRevenue'], ['Receita individual', 'individualRevenue'], ['Renda fixa', 'fixedIncome']].map(([name, key]) => ({ name, Atual: current[key as keyof PsychologistResults] as number, Projetado: projected[key as keyof PsychologistResults] as number }));
+  const financial = [{ name: 'Faturamento', Atual: current.revenue, Projetado: projected.revenue }, { name: 'Custos', Atual: current.totalCosts, Projetado: projected.totalCosts }, { name: 'Resultado mensal', Atual: current.monthlyProfit, Projetado: projected.monthlyProfit }];
+  const productivity = [['Horas trabalhadas', current.totalHours, projected.totalHours, 'h/mês'], ['Vidas impactadas', current.livesImpacted, projected.livesImpacted, 'pessoas'], ['Ganho por hora', current.hourlyGain, projected.hourlyGain, 'R$/h']];
+  return <section className="content-section results-charts-section"><div className="section-heading"><span>Gráficos</span><h2>Leitura visual dos resultados</h2></div><div className="grid gap-4 xl:grid-cols-2"><ChartFrame title="Composição da receita"><FinancialChart data={revenueComposition} /></ChartFrame><ChartFrame title="Resultado financeiro"><FinancialChart data={financial} /></ChartFrame><ChartFrame title="Impacto e produtividade"><div className="grid gap-3 sm:grid-cols-3">{productivity.map(([label, actual, estimate, suffix]) => <div className="summary-item rounded-md border border-white/10 bg-[#142944] p-4" key={label as string}><span className="block text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</span><strong className="mt-2 block text-base text-white">{Number(actual).toLocaleString('pt-BR')} {suffix}</strong><span className="mt-2 block text-xs text-gold-500">Projetado: {Number(estimate).toLocaleString('pt-BR')} {suffix}</span></div>)}</div></ChartFrame></div></section>;
+};
+
+const FinancialChart = ({ data }: { data: Array<{ name: string; Atual: number; Projetado: number }> }) => <ResponsiveContainer width="100%" height={320}><BarChart data={data}><CartesianGrid stroke="rgba(203, 213, 225, 0.13)" strokeDasharray="3 3" vertical={false} /><XAxis dataKey="name" tick={chartText} interval={0} angle={-12} textAnchor="end" height={70} /><YAxis tickFormatter={compactNumber} tick={chartText} /><Tooltip formatter={moneyTooltip} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} /><Legend wrapperStyle={{ color: '#cbd5e1' }} /><Bar dataKey="Atual" fill="#9ca3af" radius={[4, 4, 0, 0]} /><Bar dataKey="Projetado" fill="#c99732" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer>;
+const ChartFrame = ({ title, children }: { title: string; children: React.ReactNode }) => <div className="chart-frame"><h3>{title}</h3>{children}</div>;
