@@ -14,13 +14,16 @@ const Status = ({ row }: { row: PsychologistComparisonRow }) => {
   if (row.key === 'individualRevenue' && row.status === 'negative') {
     return <span className="status-badge status-badge-strategy"><Shuffle size={15} />Redistribuído</span>;
   }
+  if (row.key === 'totalCosts' && row.status === 'negative') {
+    return <span className="status-badge status-badge-strategy"><Equal size={15} />Ajuste previsto</span>;
+  }
   if (row.status === 'positive') return <span className="status-badge status-badge-positive"><ArrowUpRight size={15} />Melhor</span>;
   if (row.status === 'negative') return <span className="status-badge status-badge-negative"><ArrowDownRight size={15} />Atenção</span>;
   return <span className="status-badge status-badge-neutral"><Equal size={15} />Neutro</span>;
 };
 
 const differenceTone = (row: PsychologistComparisonRow) =>
-  row.key === 'individualRevenue' && row.status === 'negative'
+  (row.key === 'individualRevenue' || row.key === 'totalCosts') && row.status === 'negative'
     ? 'text-[#f1cb79]'
     : row.status === 'positive'
       ? 'text-emerald-300'
