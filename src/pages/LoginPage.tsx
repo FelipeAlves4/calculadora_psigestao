@@ -46,9 +46,9 @@ export const LoginPage = () => {
 
   return (
     <AuthShell
-      eyebrow="ACESSO À PLATAFORMA"
-      title="Bem-vindo ao PsiGestão"
-      description="Acesse sua conta para continuar gerenciando seus atendimentos."
+      eyebrow="ACESSO À CALCULADORA"
+      title="Acesse sua calculadora"
+      description="Entre na sua conta para criar e visualizar suas simulações."
     >
       {successMessage ? <div className="form-alert form-alert-success" role="status">{successMessage}</div> : null}
       {sessionNotice ? <div className="form-alert form-alert-info" role="status">{sessionNotice}</div> : null}
@@ -61,7 +61,7 @@ export const LoginPage = () => {
           <Link to="/recuperar-senha">Esqueci minha senha</Link>
         </div>
         <button className="auth-submit" type="submit" disabled={submitting}>
-          {submitting ? <><span className="loading-spinner loading-spinner-dark" /> Entrando…</> : 'Entrar no PsiGestão'}
+          {submitting ? <><span className="loading-spinner loading-spinner-dark" /> Entrando…</> : 'Entrar na calculadora'}
         </button>
       </form>
       <p className="auth-alternate-action">Ainda não possui uma conta? <Link to="/cadastro">Criar conta</Link></p>

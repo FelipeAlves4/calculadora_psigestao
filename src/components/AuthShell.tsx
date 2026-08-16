@@ -1,25 +1,26 @@
-import { CalendarDays, LockKeyhole, UsersRound, WalletCards } from 'lucide-react';
+import { ChartNoAxesCombined, Clock3, Heart, LockKeyhole, TrendingUp, WalletCards, type LucideIcon } from 'lucide-react';
 import { ReactNode } from 'react';
 
 type AuthVariant = 'login' | 'register';
 
-const panelContent: Record<AuthVariant, { title: string; description: string; benefits: Array<{ icon: typeof UsersRound; label: string }> }> = {
+const panelContent: Record<AuthVariant, { title: string; description: string; benefits: Array<{ icon: LucideIcon; label: string }> }> = {
   login: {
-    title: 'Sua prática clínica, organizada.',
-    description: 'Centralize pacientes, atendimentos, agenda e resultados em um só lugar.',
+    title: 'Calculadora de Resultados para Psicólogos',
+    description: 'Compare seu cenário atual com uma projeção de crescimento e veja o impacto nos seus resultados.',
     benefits: [
-      { icon: UsersRound, label: 'Gestão de pacientes' },
-      { icon: CalendarDays, label: 'Organização dos atendimentos' },
-      { icon: WalletCards, label: 'Controle financeiro e agenda' },
+      { icon: ChartNoAxesCombined, label: 'Compare cenário atual e projetado' },
+      { icon: WalletCards, label: 'Veja faturamento, custos e resultado' },
+      { icon: Clock3, label: 'Analise horas trabalhadas e vidas impactadas' },
     ],
   },
   register: {
-    title: 'Mais organização para você. Mais atenção para seus pacientes.',
-    description: 'Centralize sua rotina profissional e reduza o tempo gasto com tarefas administrativas.',
+    title: 'Veja o potencial dos seus atendimentos',
+    description: 'Simule diferentes formatos de atendimento e compare faturamento, despesas, tempo de trabalho e pessoas impactadas.',
     benefits: [
-      { icon: CalendarDays, label: 'Agenda organizada' },
-      { icon: UsersRound, label: 'Informações dos pacientes centralizadas' },
-      { icon: WalletCards, label: 'Gestão financeira' },
+      { icon: TrendingUp, label: 'Simulações rápidas' },
+      { icon: ChartNoAxesCombined, label: 'Comparação lado a lado' },
+      { icon: WalletCards, label: 'Resultados financeiros claros' },
+      { icon: Heart, label: 'Indicadores de produtividade' },
     ],
   },
 };
@@ -45,7 +46,7 @@ export const AuthShell = ({
       <aside className="auth-brand-panel" aria-label="Sobre o PsiGestão">
         <div className="auth-brand-identity">
           <img className="auth-brand-logo" src="/psigestao-logo.png" alt="PsiGestão" />
-          <p className="auth-brand-tagline">Gestão inteligente para sua prática clínica</p>
+          <p className="auth-brand-tagline">Calculadora de Resultados para Psicólogos</p>
         </div>
         <div className="auth-brand-content">
           <h2>{content.title}</h2>
@@ -58,7 +59,7 @@ export const AuthShell = ({
           <LockKeyhole size={18} />
           <p><strong>Acesso protegido</strong><span>Seus dados são tratados com segurança.</span></p>
         </div>
-        <small className="auth-asex-signature">Uma solução PsiGestão</small>
+        <small className="auth-asex-signature">Uma solução ASEX Educação</small>
       </aside>
       <div className="auth-card">
         <span className="auth-eyebrow">{eyebrow}</span>

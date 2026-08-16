@@ -42,7 +42,7 @@ export const RegisterPage = () => {
       await api('/api/auth/register', { method: 'POST', body: JSON.stringify(form) });
       navigate('/login', {
         replace: true,
-        state: { success: 'Cadastro realizado com sucesso. Entre para começar a usar o PsiGestão.' },
+        state: { success: 'Cadastro realizado com sucesso. Entre para começar a usar a calculadora.' },
       });
     } catch (error) {
       const apiError = error as ApiError;
@@ -54,7 +54,7 @@ export const RegisterPage = () => {
   };
 
   return (
-    <AuthShell variant="register" eyebrow="CRIAR CONTA" title="Crie sua conta no PsiGestão" description="Comece a organizar sua rotina profissional em poucos minutos.">
+    <AuthShell variant="register" eyebrow="CRIAR CONTA" title="Crie sua conta" description="Cadastre-se para começar a simular seus resultados profissionais.">
       {message ? <div className="form-alert form-alert-error" role="alert">{message}</div> : null}
       <form className="auth-form" onSubmit={submit} noValidate>
         <FormField label="Nome completo" name="name" placeholder="Seu nome completo" value={form.name} onChange={(event) => update('name', event.target.value)} error={errors.name} autoComplete="name" required />
@@ -67,7 +67,7 @@ export const RegisterPage = () => {
           <span>Li e aceito os termos de uso e a política de privacidade.</span>
         </label>
         {errors.acceptTerms ? <small className="field-error">{errors.acceptTerms}</small> : null}
-        <button className="auth-submit" type="submit" disabled={submitting}>{submitting ? <><span className="loading-spinner loading-spinner-dark" /> Criando conta…</> : 'Criar minha conta'}</button>
+        <button className="auth-submit" type="submit" disabled={submitting}>{submitting ? <><span className="loading-spinner loading-spinner-dark" /> Criando conta…</> : 'Criar conta e acessar calculadora'}</button>
       </form>
       <p className="auth-alternate-action">Já possui uma conta? <Link to="/login">Entrar</Link></p>
     </AuthShell>
