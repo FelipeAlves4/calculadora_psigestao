@@ -789,8 +789,11 @@
   }
 
   .comparison-table-shell {
-    @apply overflow-hidden rounded-md border border-white/10 bg-[#0b1b2d];
+    @apply overflow-x-auto rounded-lg border border-white/10 bg-[#0b1b2d];
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16);
   }
+
+  .comparison-table-shell table { min-width: 46rem; }
 
   .comparison-mobile-list {
     @apply hidden;
@@ -828,12 +831,15 @@
   }
 
   .comparison-table-shell th {
-    @apply bg-[#1b3554] px-4 py-3 text-left text-xs font-black uppercase tracking-wide text-gold-500;
+    @apply bg-[#1b3554] px-4 py-3.5 text-left text-xs font-black uppercase tracking-wide text-gold-500;
   }
 
   .comparison-table-shell td {
-    @apply border-t border-white/10 px-4 py-3 text-slate-200;
+    @apply border-t border-white/10 px-4 py-3.5 text-slate-200;
   }
+
+  .comparison-table-shell td:first-child { min-width: 15rem; }
+  .comparison-difference { @apply whitespace-nowrap font-extrabold; }
 
   .comparison-table-shell tbody tr:nth-child(even) {
     background: rgba(255, 255, 255, 0.025);
@@ -844,8 +850,13 @@
   }
 
   .status-badge {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold;
+    @apply inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-bold;
   }
+
+  .status-badge-positive { @apply bg-emerald-500/15 text-emerald-300; }
+  .status-badge-negative { @apply bg-red-500/15 text-red-300; }
+  .status-badge-neutral { @apply bg-slate-700/70 text-slate-200; }
+  .status-badge-strategy { @apply bg-gold-500/15 text-[#f1cb79]; }
 
   .chart-frame {
     @apply rounded-md border border-white/10 bg-[#0b1b2d] p-4 shadow-sm;
